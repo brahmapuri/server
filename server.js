@@ -37,10 +37,12 @@ app.use("/api", productRoutes)
 app.use("/api", CategoryRoutes)
 app.use("/api", OwnerRoutes)
 
-app.listen(8000, (err) => {
+const port = Process.env.PORT || 3000
+
+app.listen(port, (err) => {
   if(err) {
     console.log(err)
   } else {
-    console.log("listening on post", 8000)
+    console.log("listening on post", port)
   }
 })
