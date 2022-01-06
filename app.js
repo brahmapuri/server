@@ -32,12 +32,14 @@ const productRoutes = require("./routes/product")
 const CategoryRoutes = require("./routes/category")
 const OwnerRoutes = require("./routes/owner")
 const userRoutes = require("./routes/auth")
+const addressRoutes = require("./routes/address")
 app.use("/api", userRoutes)
 app.use("/api", productRoutes)
 app.use("/api", CategoryRoutes)
 app.use("/api", OwnerRoutes)
+app.use("/api", addressRoutes)
 
-const port = process.env.PORT || 3000
+let port = process.env.PORT || 8000
 
 app.listen(port, (err) => {
   if(err) {
