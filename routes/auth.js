@@ -15,6 +15,7 @@ router.post('/auth/signup', async(req, res) => {
     let checkUser = await User.findOne({email: req.body.email})
         if(checkUser){
           return res.json({
+            success: false,
             message: 'user already exists kindly login'
           })
         }
@@ -96,7 +97,7 @@ router.post('/auth/signup', async(req, res) => {
 
 router.get("/auth/user", verifyToken, async(req, res) => {
   try {
-    let foundUser = await User.findOne({email: req.decoded.email})
+    let foundUser = await User.findOne({email: req.decoded.email}).populate('address').exec()
     console.log('foundUser', foundUser)
     if(foundUser){
       res.json({
@@ -137,7 +138,7 @@ router.put("/auth/user", verifyToken, async(req, res) =>{
 
 router.post("/auth/login", async(req,res) => {
   try {
-    let foundUser = await User.findOne({ email: req.body.email})
+    let foundUser = await User.findOne({ email: req.body.email}).populate('address').exec()
     if(!foundUser) {
       res.status(403).json({
         success: false,
@@ -148,7 +149,7 @@ router.post("/auth/login", async(req,res) => {
         let token = jwt.sign(foundUser.toJSON(), process.env.SECRET, {
           expiresIn: 604800 // 1 week
         })
-        res.json({success: true, token : token})
+        res.json({success: true, token : token, foundUser})
       } else {
         res.status(403).json({
           success: false,

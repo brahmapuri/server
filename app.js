@@ -31,13 +31,19 @@ app.get("/", (req, res)=>{
 const productRoutes = require("./routes/product")
 const CategoryRoutes = require("./routes/category")
 const OwnerRoutes = require("./routes/owner")
+const ordersRoutes = require("./routes/orders")
+const userOrdersRoutes = require("./routes/userOrder")
 const userRoutes = require("./routes/auth")
 const addressRoutes = require("./routes/address")
+const paymentRoutes = require("./routes/payment")
 app.use("/api", userRoutes)
 app.use("/api", productRoutes)
 app.use("/api", CategoryRoutes)
 app.use("/api", OwnerRoutes)
 app.use("/api", addressRoutes)
+app.use("/api", paymentRoutes)
+app.use("/api", ordersRoutes)
+app.use("/api", userOrdersRoutes)
 
 let port = process.env.PORT || 8000
 
