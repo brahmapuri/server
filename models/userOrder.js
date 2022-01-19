@@ -13,7 +13,8 @@ const UserOrderSchema = new Schema({
     }
   ],
   razorpayPaymentId: String,
-  razorpayOrderId: String
+  razorpayOrderId: String,
+  email: String
 },{timestamps: true})
 
 module.exports = mongoose.model("UserOrder", UserOrderSchema)

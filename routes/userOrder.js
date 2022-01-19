@@ -26,7 +26,7 @@ router.post('/userorders', async (req, res) => {
 
 router.get('/userorders',verifyToken, async (req, res) =>{
   try {
-    let orders = await UserOrder.find({ owner: req.decoded._id})
+    let orders = await UserOrder.find({ email: req.decoded.email})
     .populate("owner products.productID").exec()
     res.json({
       success: true,

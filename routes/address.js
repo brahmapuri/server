@@ -18,6 +18,7 @@ router.post("/address",verifyToken, async(req,res)=>{
     address.phoneNumber = req.body.phoneNumber
     address.deliveryInstructions = req.body.deliveryInstructions
     address.securityCode = req.body.securityCode
+    address.email = req.body.email
 
     await address.save()
     res.json({
@@ -36,7 +37,7 @@ router.post("/address",verifyToken, async(req,res)=>{
 
 router.get("/address",verifyToken, async(req,res)=>{
   try{
-    let address = await Address.find({user: req.decoded._id})
+    let address = await Address.find({email: req.decoded.email})
     res.json({
       success:true,
       address: address

@@ -68,6 +68,7 @@ router.post("/payment/pass",verifyToken, (req, res)=>{
             price: prod.price
           })
         })
+        userOrder.email = newOrderToSave.email
         userOrder.owner = req.decoded._id
         userOrder.estimatedDelivery = 10
         userOrder.razorpayPaymentId = orderr.razorpay_payment_id
