@@ -58,43 +58,6 @@ router.post('/auth/signup', async(req, res) => {
     })
   })
 
-  // if(!req.body.email || !req.body.password) {
-  //   res.json({success: false, message: 'please enter email or password'})
-  // } else {
-  //   try {
-  //     let checkUser = await User.findOne({email: req.body.email})
-  //     if(checkUser){
-  //       res.json({
-  //         message: 'user already exists kindly login'
-  //       })
-  //     }
-  //     let newUser = new User()
-  //     newUser.name = req.body.name
-  //     newUser.email = req.body.email
-  //     newUser.password = req.body.password
-  //     console.log('going to save',newUser)
-  //     let ab = await newUser.save()
-  //     console.log('new user', ab)
-  //     let token = jwt.sign(newUser.JSON(), process.env.SECRET,{
-  //       expiresIn: 604800 // 1 week
-  //     })
-  //     console.log('token', token)
-
-  //     res.json({
-  //       success: true,
-  //       token:token,
-  //       message : 'Successfully created new user'
-  //     })
-  //   } catch (err) {
-  //     console.log('reached in err')
-  //     res.status(500).json({
-  //       success: false,
-  //       message: err.message
-  //     })
-  //   }
-  // }
-// })
-
 router.get("/auth/user", verifyToken, async(req, res) => {
   try {
     let foundUser = await User.findOne({email: req.decoded.email}).populate('address').exec()

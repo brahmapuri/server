@@ -10,16 +10,4 @@ const OrderSchema = new Schema({
   razorpayOrderId: String
 },{timestamps: true})
 
-// const OrderSchema = new Schema({
-//   owner: { type: Schema.Types.ObjectId, ref: "User"},
-//   estimatedDelivery: String,
-//   products: [
-//     {
-//       productID: { type: Schema.Types.ObjectId, ref: "Product" },
-//       quantity: Number,
-//       price: Number
-//     }
-//   ]
-// })
-
 module.exports = mongoose.model("Order", OrderSchema)

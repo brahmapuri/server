@@ -15,10 +15,8 @@ router.post("/payment", (req, res)=>{
     key_secret: process.env.key_secret,
   });
   
-  // var instance = new Razorpay({ key_id: 'YOUR_KEY_ID', key_secret: 'YOUR_SECRET' })
-  
   var options = {
-    amount: 100,  // amount in the smallest currency unit
+    amount: amount,  // amount in the smallest currency unit
     currency: "INR",
     receipt: "order_rcptid_11"
   };
@@ -100,11 +98,6 @@ sendSmtpEmail.replyTo = {"email":"brahmapurisahajayoga@gmail.com","name":"Brahma
 sendSmtpEmail.params = {"parameter":newOrderToSave.name,"subject":"Your Order has been successfully placed", "product": myProd, "orderId":orderr.razorpay_order_id_my, "paymentId":orderr.razorpay_payment_id, "address":mailAddress};
 await apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data) {  console.log('API called successfully. Returned data: ' + JSON.stringify(data));}, function(error) {  console.error(error);});
     
-        // res.json({
-        //   success: true,
-        //   message: "Successfully created a new order",
-        //   order
-        // })
   })().catch(err => {
       console.error(err);
   });
@@ -113,49 +106,5 @@ await apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data) {  consol
     return res.status(400).send({ success: false, message: "Payment verification failed" });
   }
 })
-
-// const { URLSearchParams } = require('url');
-// // const fetch = import('node-fetch');
-// const axios = require('axios');
-
-// router.get('/payment', (req, res)=>{
-// // let amount = req.body.amount
-//   const encodedParams = new URLSearchParams();
-// encodedParams.set('key','JPM7Fg');
-// encodedParams.set('amount','10.00');
-// encodedParams.set('txnid','5E4UPXKGXwPznp');
-// encodedParams.set('firstname','PayU User');
-// encodedParams.set('email','test@gmail.com');
-// encodedParams.set('phone','9876543210');
-// encodedParams.set('productinfo','iPhone');
-// encodedParams.set('surl','https://apiplayground-response.herokuapp.com/');
-// encodedParams.set('furl','https://apiplayground-response.herokuapp.com/');
-// encodedParams.set('pg','');
-// encodedParams.set('bankcode','');
-// encodedParams.set('ccnum','');
-// encodedParams.set('ccexpmon','');
-// encodedParams.set('ccexpyr','');
-// encodedParams.set('ccvv','');
-// encodedParams.set('ccname','');
-// encodedParams.set('txn_s2s_flow','');
-// encodedParams.set('hash','4251b88864821c177dfe7dfa7e41eb8716231857fdd87b6ff03d5a4f1529b1c7fb59da6106bd054cd2211bf9a5998533423f131faeafe3b5d4f74df219542cb8');
-// const url = 'https://test.payu.in/_payment';
-// const options = {
-// method: 'POST',
-// headers: {
-// Accept: 'application/json',
-// 'Content-Type': 'application/x-www-form-urlencoded'
-// },
-// body: encodedParams
-// };
-// let response
-// axios(url, options)
-// // .then(res => res.json())
-// .then(json => {response = json 
-//   console.log("json--------------------",json)})
-// .catch(err => console.error('error:' + err));
-// console.log("response in api", response)
-// res.send(response)
-// })
 
 module.exports = router
