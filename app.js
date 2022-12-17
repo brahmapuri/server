@@ -10,18 +10,28 @@ let PORT = process.env.PORT || 8000
 
 dotenv.config()
 
-Mongoose.connect(
-  process.env.DATABASE, err=>{
-    if(err){
-      console.log("database error",err)
-    } else {
-      app.listen(PORT, () => {
-        console.log("listening for requests");
-    })
-      console.log("database connected...")
-    }
+const connectDB = async () => {
+  try {
+    const conn = await Mongoose.connect(process.env.DATABASE);
+    console.log(`MongoDB Connected:`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
   }
-)
+}
+
+// Mongoose.connect(
+//   process.env.DATABASE, err=>{
+//     if(err){
+//       console.log("database error",err)
+//     } else {
+//       app.listen(PORT, () => {
+//         console.log("listening for requests");
+//     })
+//       console.log("database connected...")
+//     }
+//   }
+// )
 
 // middlewares
 // this is brahmapuri
@@ -58,3 +68,9 @@ app.use("/api", userOrdersRoutes)
 //     console.log("listening on post", PORT)
 //   }
 // })
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+      console.log("listening for requests");
+  })
+})
