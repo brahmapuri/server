@@ -6,6 +6,7 @@ const dotenv = require("dotenv")
 const User = require("./models/user")
 const cors = require("cors")
 const app = express()
+let PORT = process.env.PORT || 8000
 
 dotenv.config()
 
@@ -14,6 +15,9 @@ Mongoose.connect(
     if(err){
       console.log("database error",err)
     } else {
+      app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
       console.log("database connected...")
     }
   }
@@ -46,12 +50,11 @@ app.use("/api", paymentRoutes)
 app.use("/api", ordersRoutes)
 app.use("/api", userOrdersRoutes)
 
-let port = process.env.PORT || 8000
 
-app.listen(port, (err) => {
-  if(err) {
-    console.log(err)
-  } else {
-    console.log("listening on post", port)
-  }
-})
+// app.listen(PORT, (err) => {
+//   if(err) {
+//     console.log(err)
+//   } else {
+//     console.log("listening on post", PORT)
+//   }
+// })
