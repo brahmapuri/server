@@ -9,7 +9,7 @@ const SibApiV3Sdk = require('sib-api-v3-sdk');
 
 router.post("/payment", (req, res)=>{
   console.log("amount", req.body.amount)
-  let amount = req.body.amount * 100
+  let amount = req.body.amount * 10000
   var instance = new Razorpay({
     key_id: process.env.key_id,
     key_secret: process.env.key_secret,
